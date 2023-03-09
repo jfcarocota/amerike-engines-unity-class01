@@ -17,6 +17,7 @@ namespace Jump
         private float _jumpForce = 5f;
 
         private IAirController _airController;
+        [SerializeReference]
         private IGroundingChecker _groundingChecker;
     
         //Events
@@ -34,10 +35,6 @@ namespace Jump
         {
             Inject(new AirController());
             Inject(new GroundingChecker());
-        
-            _groundingChecker.RayColor = Color.magenta;
-            _groundingChecker.GroundRayDistance = 0.8f;
-            _groundingChecker.GroundRayPosition = Vector3.zero;
         }
 
         public void Inject(IAirController airController) => _airController = airController;
@@ -45,8 +42,6 @@ namespace Jump
 
         private void Awake()
         {
-            _groundingChecker.GroundLayer = LayerMask.NameToLayer("Ground");
-
             jumpRoutine = JumpRoutine();
         
             _playerInput.actions["jump"].performed += _=>

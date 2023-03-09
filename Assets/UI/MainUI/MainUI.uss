@@ -1,0 +1,9 @@
+VisualElement {
+}
+
+.basic-text {
+    color: rgba(255, 210, 0, 255);
+    font-size: 24px;
+    -unity-text-align: middle-center;
+    padding-top: 15px;
+}
