@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,12 +10,11 @@ namespace FlipSprite
         [SerializeReference] 
         private ISpriteController _spriteController;
 
-        public FlipSprite()
+        private void Awake()
         {
-            Inject(new SpriteController());
-            _spriteController.SprRenderer = GetComponent<SpriteRenderer>();
+            Inject(new SpriteController(GetComponent<SpriteRenderer>()));
         }
-        
+
         public void Inject(ISpriteController spriteController) => _spriteController = spriteController;
 
         public void FlipSpriteOnMoveX(InputAction.CallbackContext ctx) => _spriteController.IsFlippedOnX =
