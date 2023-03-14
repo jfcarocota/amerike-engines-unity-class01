@@ -1,34 +1,30 @@
-﻿using System;
-using UI;
+﻿using UI;
 using UnityEngine;
 
-namespace DefaultNamespace
+public class GameManager: MonoBehaviour
 {
-    public class GameManager: MonoBehaviour
+    public static GameManager Instance;
+    public IScore Score { get; set; }
+    [SerializeField] 
+    private MainUI _mainUI;
+
+    public MainUI GetMainUI => _mainUI;
+
+    public GameManager()
     {
-        public static GameManager Instance;
-        public IScore Score { get; set; }
-        [SerializeField] 
-        private MainUI _mainUI;
+        Score = new Score();
+    }
 
-        public MainUI GetMainUI => _mainUI;
-
-        public GameManager()
+    private void Awake()
+    {
+        if (!Instance)
         {
-            Score = new Score();
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-
-        private void Awake()
+        else
         {
-            if (!Instance)
-            {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         }
     }
 }

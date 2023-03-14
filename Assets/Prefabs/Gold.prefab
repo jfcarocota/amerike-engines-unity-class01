@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5945865828721821568}
   - component: {fileID: 5945865828721821569}
-  - component: {fileID: 5945865828721821630}
   - component: {fileID: 5945865828721821631}
+  - component: {fileID: 2286202062078257154}
   m_Layer: 0
   m_Name: Gold
   m_TagString: Untagged
@@ -86,19 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5945865828721821630
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5945865828721821628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bab5919f67344a6b22790dc27cfef89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _points: 5
 --- !u!58 &5945865828721821631
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -115,3 +102,31 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &2286202062078257154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5945865828721821628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2e48cbf0ad3447f9e01933f61e1bf09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _value: 5
+  OnCollected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2286202062078257154}
+        m_TargetAssemblyTypeName: Collectables.Coin, Collectable
+        m_MethodName: Collect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
