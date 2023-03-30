@@ -32,34 +32,9 @@ namespace CustomNodes
         private ValueInput _directionInput;
         private Vector2 _direction;
         
-        
         protected override void Definition()
         {
-            _inputTrigger = ControlInput("", (flow) =>
-            {
-                _typeMovment = flow.GetValue<TypeMovement>(_typeMomentInput);
-                _moveSpeed = flow.GetValue<float>(_moveSpeedInput);
-                _rigidbody2D = flow.GetValue<Rigidbody2D>(_rigidbody2DInput);
-                _direction = flow.GetValue<Vector2>(_directionInput);
-
-                switch (_typeMovment)
-                {
-                    case TypeMovement.HORIZONTAL:
-                        _rigidbody2D.MovePosition(_rigidbody2D.position + _direction.normalized * Vector2.right * _moveSpeed * Time.fixedDeltaTime);
-                        break;
-                    case TypeMovement.VERTICAL:
-                        _rigidbody2D.MovePosition(_rigidbody2D.position + _direction.normalized * Vector2.up * _moveSpeed * Time.fixedDeltaTime);
-                        break;
-                    case TypeMovement.FREE:
-                        _rigidbody2D.MovePosition(_rigidbody2D.position + _direction.normalized * _moveSpeed * Time.fixedDeltaTime);
-                        break;
-                    default:
-                        _rigidbody2D.MovePosition(_rigidbody2D.position + _direction.normalized * Vector2.right * _moveSpeed * Time.fixedDeltaTime);
-                        break;
-                }
-                
-                return _outputTrigger;
-            });
+            _inputTrigger = ControlInput("", ExecuteFlow);
 
             _typeMomentInput = ValueInput<TypeMovement>("Type Movement", TypeMovement.HORIZONTAL);
             _moveSpeedInput = ValueInput<float>("Move Speed", 0f);
@@ -67,6 +42,32 @@ namespace CustomNodes
             _directionInput = ValueInput<Vector2>("Direction", Vector2.zero);
             
             _outputTrigger = ControlOutput("");
+        }
+
+        private ControlOutput ExecuteFlow(Flow flow)
+        {
+            _typeMovment = flow.GetValue<TypeMovement>(_typeMomentInput);
+            _moveSpeed = flow.GetValue<float>(_moveSpeedInput);
+            _rigidbody2D = flow.GetValue<Rigidbody2D>(_rigidbody2DInput);
+            _direction = flow.GetValue<Vector2>(_directionInput);
+
+            switch (_typeMovment)
+            {
+                case TypeMovement.HORIZONTAL:
+                    _rigidbody2D.MovePosition(_rigidbody2D.position + _direction.normalized * Vector2.right * _moveSpeed * Time.fixedDeltaTime);
+                    break;
+                case TypeMovement.VERTICAL:
+                    _rigidbody2D.MovePosition(_rigidbody2D.position + _direction.normalized * Vector2.up * _moveSpeed * Time.fixedDeltaTime);
+                    break;
+                case TypeMovement.FREE:
+                    _rigidbody2D.MovePosition(_rigidbody2D.position + _direction.normalized * _moveSpeed * Time.fixedDeltaTime);
+                    break;
+                default:
+                    _rigidbody2D.MovePosition(_rigidbody2D.position + _direction.normalized * Vector2.right * _moveSpeed * Time.fixedDeltaTime);
+                    break;
+            }
+
+            return _outputTrigger;
         }
     }
 }
